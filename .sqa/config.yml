@@ -1,0 +1,58 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/1.7.9
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    gitlab.com/elnazazmi/iconet:
+      branch: main
+      repo: https://gitlab.com/elnazazmi/iconet
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      gitlab.com/elnazazmi/iconet git:
+        commands:
+        - /usr/bin/env sh .sqa/script.crabby-vermilion-hamster.sh
+        container: qc.acc_sleepy-peach-bat
+  QC.Doc:
+    repos:
+      gitlab.com/elnazazmi/iconet find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.randy-ivory-indri.sh
+        container: qc.doc_jumpy-gamboge-ray
+      gitlab.com/elnazazmi/iconet git:
+        commands:
+        - /usr/bin/env sh .sqa/script.breezy-brass-rattlesnake.sh
+        container: qc.doc_droopy-denim-armadillo
+      gitlab.com/elnazazmi/iconet markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.grumpy-plum-lobster.sh
+        container: qc.doc_flaky-ochre-coyote
+  QC.Lic:
+    repos:
+      gitlab.com/elnazazmi/iconet licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.snappy-peach-spaniel.sh
+        container: qc.lic_silly-plum-dhole
+  QC.Sec:
+    repos:
+      gitlab.com/elnazazmi/iconet bandit:
+        commands:
+        - /usr/bin/env sh .sqa/script.frumpy-smalt-beetle.sh
+        container: qc.sec_shaky-vermilion-moose
+  QC.Sty:
+    repos:
+      gitlab.com/elnazazmi/iconet flake8:
+        commands:
+        - /usr/bin/env sh .sqa/script.whiny-viridian-kudu.sh
+        container: qc.sty_beady-cerulean-opossum
+  QC.Ver:
+    repos:
+      gitlab.com/elnazazmi/iconet get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.flabby-auburn-worm.sh
+        container: qc.ver_gimpy-maroon-sponge
+timeout: 5400
